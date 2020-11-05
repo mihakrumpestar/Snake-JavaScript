@@ -164,8 +164,8 @@ function waitingKeypress() {
         document.addEventListener('keydown', onKeyHandler);
         function onKeyHandler(e) {
             if (e.keyCode === 32) {
-            document.removeEventListener('keydown', onKeyHandler);
-            resolve();
+                document.removeEventListener('keydown', onKeyHandler);
+                resolve();
             }
         }
     });
