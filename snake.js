@@ -62,8 +62,8 @@ document.addEventListener("keydown",direction);
 function direction(event){
     let key = event.keyCode;
     if( key == 37 && d != "RIGHT"){
-        left.play();
         d = "LEFT";
+        left.play();
     }else if(key == 38 && d != "DOWN"){
         d = "UP";
         up.play();
