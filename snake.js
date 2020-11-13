@@ -4,6 +4,7 @@
 // create the unit
 
 
+
 // load images
 
 const ground = new Image();
@@ -111,7 +112,7 @@ function draw() {
     // if the snake eats the food
 
     if (snakeX == food.x && snakeY == food.y) {
-        
+
         eat.play();
         food = {
             x : Math.floor(Math.random()*17+1) * box,
