@@ -133,7 +133,7 @@ function draw() {
     
     // game over
 
-    if (snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)) {
+    if (snakeX < box || snakeX > 17*box || snakeY < 3*box || snakeY > 17*box || collision(newHead, snake)) {
         clearInterval(game);
         dead.play();
 
@@ -152,18 +152,18 @@ function draw() {
 
     ctx.fillStyle = "white";
     ctx.font = "45px Changa one";
-    ctx.fillText(score,2*box,1.6*box);
+    ctx.fillText(score, 2*box, 1.6*box);
 }
 
 // call draw function every 100 ms
 
-let game = setInterval(draw,100);
+let game = setInterval(draw, 100);
 
 function waitingKeypress() {
     return new Promise((resolve) => {
         document.addEventListener('keydown', onKeyHandler);
         function onKeyHandler(e) {
-            if (e.keyCode === 32) {
+            if (e.keyCode == 32) {
                 document.removeEventListener('keydown', onKeyHandler);
                 resolve();
             }
