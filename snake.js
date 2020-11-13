@@ -86,7 +86,7 @@ function draw() {
         (async () => {
             ctx.fillStyle = "white";
             ctx.font = "22px Changa one";
-            ctx.fillText("      Pritisni space za nadaljevanje ..." ,2*box,1.6*box);
+            ctx.fillText("           Pritisni space za nadaljevanje ..." ,2*box,1.6*box);
             await waitingKeypress();
             document.location.reload();
         }) ()
