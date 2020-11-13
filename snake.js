@@ -1,9 +1,9 @@
-
-
+const cvs = document.getElementById("snake");
+const ctx = cvs.getContext("2d");
 
 // create the unit
 
-
+const box = 32;
 
 // load images
 
@@ -31,29 +31,29 @@ down.src = "audio/down.mp3";
 
 // create the snake
 
-
-
-
-
-
-
+let snake = [];
+ 
+snake[0] = {
+    x : 9 * box,
+    y : 10 * box
+};
 
 // create the food
 
-
-
-
-
+let food = {
+    x : Math.floor(Math.random()*17+1) * box,
+    y : Math.floor(Math.random()*15+3) * box
+}
 
 // create the score var
 
-
+let score = 0;
 
 //control the snake
 
+let d;
 
-
-
+document.addEventListener("keydown", direction);
 
 function direction(event){
     let key = event.keyCode;
@@ -86,33 +86,33 @@ function collision(head, array) {
 
 function draw() {
     
+    ctx.drawImage(ground,0,0);
+    ctx.drawImage(foodImg, food.x, food.y);
 
-
-
-    
-    
-    
+    for( let i = 0; i < snake.length ; i++){
+        ctx.fillStyle = ( i == 0 )? "green" : "white";
+        ctx.fillRect(snake[i].x,snake[i].y,box,box);
         
-    
-    
-    
+        ctx.strokeStyle = "red";
+        ctx.strokeRect(snake[i].x,snake[i].y,box,box);
+    }
 
     // old head position
 
-    
-    
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
 
     // which direction
 
-    
-    
-    
-    
+    if( d == "LEFT") snakeX -= box;
+    if( d == "UP") snakeY -= box;
+    if( d == "RIGHT") snakeX += box;
+    if( d == "DOWN") snakeY += box;
     
     // if the snake eats the food
 
-    if (false) {
-
+    if (snakeX == food.x && snakeY == food.y) {
+        score++;
         eat.play();
         food = {
             x : Math.floor(Math.random()*17+1) * box,
@@ -126,10 +126,10 @@ function draw() {
     
     // add new Head
 
-    
-    
-    
-    
+    let newHead = {
+        x : snakeX,
+        y : snakeY
+      }
     
     // game over
 
@@ -148,16 +148,16 @@ function draw() {
         }) ()
     }
 
-    
+    snake.unshift(newHead);
 
-    
-    
-    
+    ctx.fillStyle = "white";
+    ctx.font = "45px Changa one";
+    ctx.fillText(score, 2*box, 1.6*box);
 }
 
 // call draw function every 100 ms
 
-
+let game = setInterval(draw, 100);
 
 function waitingKeypress() {
     return new Promise((resolve) => {
