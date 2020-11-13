@@ -1,8 +1,18 @@
+
+
+
+// create the unit
+
+
+// load images
+
 const ground = new Image();
 ground.src = "img/ground.png";
 
 const foodImg = new Image();
 foodImg.src = "img/food.png";
+
+// load audio files
 
 let dead = new Audio();
 let eat = new Audio();
@@ -18,75 +28,120 @@ right.src = "audio/right.mp3";
 left.src = "audio/left.mp3";
 down.src = "audio/down.mp3";
 
+// create the snake
+
+
+
+
+
+
+
+
+// create the food
+
 let food = {
     x : Math.floor(Math.random()*17+1) * box,
     y : Math.floor(Math.random()*15+3) * box
 }
 
+// create the score var
+
+
+
+//control the snake
+
+
+
 document.addEventListener("keydown",direction);
 
 function direction(event){
     let key = event.keyCode;
-    if( key == 37 && d != "RIGHT"){
+    if (key == 37 && d != "RIGHT") {
         d = "LEFT";
         left.play();
-    }else if(key == 38 && d != "DOWN"){
+    } else if (key == 38 && d != "DOWN") {
         d = "UP";
         up.play();
-    }else if(key == 39 && d != "LEFT"){
+    } else if (key == 39 && d != "LEFT") {
         d = "RIGHT";
         right.play();
-    }else if(key == 40 && d != "UP"){
+    } else if (key == 40 && d != "UP") {
         d = "DOWN";
         down.play();
     }
 }
 
+// check collision function
+
 function collision(head,array) {
-    for(let i = 0; i < array.length; i++){
-        if(head.x == array[i].x && head.y == array[i].y){
+    for (let i = 0; i < array.length; i++) {
+        if (head.x == array[i].x && head.y == array[i].y)
             return true;
-        }
     }
     return false;
 }
 
+// draw everything to the canvas
+
 function draw() {
     
+
+
+
     for( let i = 0; i < snake.length ; i++) {
-        ctx.fillStyle = ( i == 0 )? "green" : "white";
-        ctx.fillRect(snake[i].x,snake[i].y,box,box);
+        ctx.fillStyle = ( i == 0 ) ? "green" : "white";
+        ctx.fillRect(snake[i].x,snake[i].y, box, box);
         
         ctx.strokeStyle = "red";
-        ctx.strokeRect(snake[i].x,snake[i].y,box,box);
+        ctx.strokeRect(snake[i].x,snake[i].y, box, box);
     }
+
+    // old head position
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
-    if(snakeX == food.x && snakeY == food.y) {
+    // which direction
+
+    
+    
+    
+    
+    
+    // if the snake eats the food
+
+    if (snakeX == food.x && snakeY == food.y) {
+        
         eat.play();
         food = {
             x : Math.floor(Math.random()*17+1) * box,
             y : Math.floor(Math.random()*15+3) * box
         }
-    }else{
+        // we don't remove the tail
+    } else {
+        // remove the tail
         snake.pop();
     }
     
+    // add new Head
+
     let newHead = {
         x : snakeX,
         y : snakeY
     }
     
-    if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
+    // game over
+
+    if (snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)) {
         clearInterval(game);
         dead.play();
+
+        // reload game when pressed space
 
         (async () => {
             ctx.fillStyle = "white";
             ctx.font = "22px Changa one";
-            ctx.fillText("           Pritisni space za nadaljevanje ..." ,2*box,1.6*box);
+            ctx.fillText("             Pritisni space za nadaljevanje ..." , 2*box, 1.6*box);
             await waitingKeypress();
             document.location.reload();
         }) ()
@@ -98,6 +153,8 @@ function draw() {
     ctx.font = "45px Changa one";
     ctx.fillText(score,2*box,1.6*box);
 }
+
+// call draw function every 100 ms
 
 let game = setInterval(draw,100);
 
